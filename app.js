@@ -2,12 +2,20 @@
 const express = require('express');
 const { Firestore } = require('@google-cloud/firestore');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const app = express();
 app.use(bodyParser.json());
 
 // Initialize Firestore
 const firestore = new Firestore();
+
+const corsOptions = {
+  origin: 'https://flagspace.app',
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
 
 app.post('/submit', async (req, res) => {
     const { name, email, company, role, interest, challenge, wishlist, companySize, betaTesting } = req.body;
